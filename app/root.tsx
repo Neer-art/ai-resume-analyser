@@ -1,86 +1,173 @@
-import {
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
 
-import type { Route } from "./+types/root";
-import "./app.css";
-import { usePuterStore } from "./lib/puter";
-import { useEffect } from "react";
+@theme {
+  --font-sans: "Mona Sans", ui-sans-serif, system-ui, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-dark-200: #475467;
+  --color-light-blue-100: #c1d3f81a;
+  --color-light-blue-200: #a7bff14d;
 
-// ✅ ONLY ONE DEFAULT EXPORT
-export default function Root() {
-  return <Outlet />;
+  --color-badge-green: #d5faf1;
+  --color-badge-red: #f9e3e2;
+  --color-badge-yellow: #fceed8;
+
+  --color-badge-green-text: #254d4a;
+  --color-badge-red-text: #752522;
+  --color-badge-yellow-text: #73321b;
 }
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href:
-      "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
-
-export function Layout({ children }: { children: React.ReactNode }) {
-  const { init } = usePuterStore();
-
-  useEffect(() => {
-    init();
-  }, [init]);
-
-  return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <script src="https://js.puter.com/v2/"></script>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  );
+html,
+body {
+  @apply bg-white;
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
+main {
+  @apply min-h-screen pt-10;
+}
+h1 {
+  @apply text-6xl  text-gradient leading-tight tracking-[-2px] font-semibold;
+}
 
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
+h2 {
+  @apply text-3xl text-dark-200;
+}
+
+label {
+  @apply text-dark-200;
+}
+input {
+  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+}
+
+textarea {
+  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+}
+
+form {
+  @apply flex flex-col items-start gap-8 w-full;
+}
+
+@layer components {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
+  }
+  .gradient-border {
+    @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200 p-4 rounded-2xl;
+  }
+  .primary-button {
+    @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full;
+  }
+  .resume-nav {
+    @apply flex flex-row justify-between items-center p-4 border-b border-gray-200;
+  }
+  .resume-summary {
+    @apply flex flex-row items-center justify-center p-4 gap-4;
+    .category {
+      @apply flex flex-row gap-2 items-center bg-gray-50 rounded-2xl p-4 w-full justify-between;
+    }
+  }
+  .back-button {
+    @apply flex flex-row items-center gap-2 border border-gray-200 rounded-lg p-2 shadow-sm;
+  }
+  .auth-button {
+    @apply primary-gradient rounded-full py-4 px-8 cursor-pointer w-[600px] max-md:w-full text-3xl font-semibold text-white;
+  }
+  .main-section {
+    @apply flex flex-col items-center gap-8 pt-12 mx-15 pb-5;
+  }
+  .page-heading {
+    @apply flex flex-col items-center gap-8 max-w-4xl text-center;
+  }
+  .resumes-section {
+    @apply flex flex-wrap max-lg:flex-col gap-6 items-start  w-full max-w-[1850px] justify-evenly;
   }
 
-  return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
-  );
+  .resume-card {
+    @apply flex flex-col gap-8 h-[560px] w-full lg:w-[450px] xl:w-[490px] bg-white rounded-2xl p-4;
+  }
+
+  .resume-card-header {
+    @apply flex flex-row gap-2 justify-between min-h-[110px] max-sm:flex-col items-center max-md:justify-center max-md:items-center;
+  }
+
+  .feedback-section {
+    @apply flex flex-col gap-8 w-1/2 px-8 max-lg:w-full py-6;
+  }
+
+ .resume-viewer {
+  height: 90vh;
+  width: 520px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 16px;
+  background: #1f1f1f;
+  padding: 20px 10px; /* top-bottom spacing */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 👈 IMPORTANT */
+}
+
+.resume-iframe {
+  width: 100%;
+  height: 750px;   /* 👈 CONTROL HEIGHT HERE */
+  border-radius: 12px;
+  border: none;
+  background: white;
+}
+
+  .navbar {
+    @apply flex flex-row justify-between items-center bg-white rounded-full p-4 w-full px-10 max-w-[1200px] mx-auto;
+  }
+
+  .score-badge {
+    @apply flex flex-row items-center justify-center py-1 px-2 gap-4 rounded-[96px];
+  }
+
+  .form-div {
+    @apply flex flex-col gap-2 w-full items-start;
+  }
+
+  .uplader-drag-area {
+    @apply relative p-8 text-center transition-all duration-700 cursor-pointer bg-white rounded-2xl min-h-[208px];
+  }
+  .uploader-selected-file {
+    @apply flex items-center justify-between p-3 bg-gray-50 rounded-2xl;
+  }
+}
+
+@utility bg-gradient {
+  background: linear-gradient(to bottom, #f0f4ff 60%, #fa7185cc);
+}
+
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
+}
+
+@utility gradient-hover {
+  @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200;
+}
+
+@utility primary-gradient {
+  background: linear-gradient(to bottom, #8e98ff, #606beb);
+  box-shadow: 0px 74px 21px 0px #6678ef00;
+}
+
+@utility primary-gradient-hover {
+  background: linear-gradient(to bottom, #717dff, #4957eb);
+}
+
+@utility inset-shadow {
+  box-shadow: inset 0 0 12px 0 rgba(36, 99, 235, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

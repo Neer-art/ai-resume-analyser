@@ -1,5 +1,5 @@
-import ScoreGauge from "~/component/ScoreGauge";
-import ScoreBadge from "~/component/ScoreBadge";
+import ScoreGauge from "~/components/ScoreGauge";
+import ScoreBadge from "~/components/ScoreBadge";
 
 // ✅ SAFE CATEGORY COMPONENT
 const Category = ({ title, score = 0 }: { title: string; score?: number }) => {

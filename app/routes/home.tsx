@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
-import Navbar from "~/component/Navbar";
-import ResumeCard from "~/component/ResumeCard";
+import Navbar from "~/components/Navbar";
+import ResumeCard from "~/components/ResumeCard";
 import {usePuterStore} from "~/lib/puter";
 import {Link, useNavigate} from "react-router";
 import {useEffect, useState} from "react";
@@ -53,7 +53,7 @@ export default function Home() {
       </div>
       {loadingResumes && (
           <div className="flex flex-col items-center justify-center">
-            <img src="/images/resume-scan-2.gif" className="w-50" />
+            <img src="/images/resume-scan-2.gif" className="w-[200px]" />
           </div>
       )}
 
