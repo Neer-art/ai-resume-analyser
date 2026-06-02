@@ -41,6 +41,9 @@ interface Feedback {
         }[];
     };
     skills: {
+        missingSkills: never[];
+        detectedSkills: never[];
+        strengths: never[];
         score: number;
         tips: {
             type: "good" | "improve";

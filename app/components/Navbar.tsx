@@ -58,7 +58,7 @@ const Navbar = () => {
         <div className="relative" ref={menuRef}>
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold hover:opacity-90 transition"
+            className="w-10 h-10 rounded-full bg-linear-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white font-semibold hover:opacity-90 transition"
           >
             {auth?.user?.username?.[0]?.toUpperCase() || "P"}
           </button>

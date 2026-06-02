@@ -168,7 +168,12 @@ const Details = ({ feedback }: { feedback: Feedback }) => {
               />
             </AccordionHeader>
             <AccordionContent itemId="tone-style">
-              <CategoryContent tips={feedback.toneAndStyle.tips} />
+              <CategoryContent 
+                tips={feedback.toneAndStyle.tips}
+                strengths={[]}
+                detectedSkills={[]}
+                missingSkills={[]}
+              />
             </AccordionContent>
           </AccordionItem>
           <AccordionItem id="content">
@@ -179,7 +184,12 @@ const Details = ({ feedback }: { feedback: Feedback }) => {
               />
             </AccordionHeader>
             <AccordionContent itemId="content">
-              <CategoryContent tips={feedback.content.tips} />
+              <CategoryContent 
+                tips={feedback.content.tips}
+                strengths={[]}
+                detectedSkills={[]}
+                missingSkills={[]}
+              />
             </AccordionContent>
           </AccordionItem>
           <AccordionItem id="structure">
@@ -190,7 +200,12 @@ const Details = ({ feedback }: { feedback: Feedback }) => {
               />
             </AccordionHeader>
             <AccordionContent itemId="structure">
-              <CategoryContent tips={feedback.structure.tips} />
+              <CategoryContent 
+                tips={feedback.structure.tips}
+                strengths={[]}
+                detectedSkills={[]}
+                missingSkills={[]}
+              />
             </AccordionContent>
           </AccordionItem>
           <AccordionItem id="skills">
@@ -201,12 +216,11 @@ const Details = ({ feedback }: { feedback: Feedback }) => {
               />
             </AccordionHeader>
             <AccordionContent itemId="skills">
-              <CategoryContent tips={feedback.skills.tips} 
-              strengths={feedback.skills.strengths || []}
-              detectedSkills={feedback.skills.detectedSkills || []}
-              missingSkills={feedback.skills.missingSkills || []}
-              tips={feedback.structure.tips}
-              strengths={feedback.structure.strengths || []}
+              <CategoryContent
+                tips={feedback.skills.tips}
+                strengths={feedback.skills.strengths || []}
+                detectedSkills={feedback.skills.detectedSkills || []}
+                missingSkills={feedback.skills.missingSkills || []}
               />
             </AccordionContent>
           </AccordionItem>

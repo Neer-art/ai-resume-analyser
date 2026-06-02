@@ -85,7 +85,7 @@ const Upload = () => {
             
             const imageFile = await convertPdfToImage(file);
 
-            const uploadedImage = await fs.upload([imageFile.file]);
+            const uploadedImage = imageFile.file ? await fs.upload([imageFile.file]) : null;
 
             const data = {
             id: uuid,
