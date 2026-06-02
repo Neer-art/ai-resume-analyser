@@ -58,19 +58,21 @@ const Resume = () => {
                 </Link>
             </nav>
             <div className="flex flex-row w-full max-lg:flex-col-reverse">
-                <section className="feedback-section bg-[url('/images/bg-small.svg') bg-cover h-[100vh] sticky top-0 items-center justify-center">
-                    {imageUrl && resumeUrl && (
-                        <div className="animate-in fade-in duration-1000 gradient-border max-sm:m-0 h-[90%] max-wxl:h-fit w-fit">
-                            <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
-                                <img
-                                    src={imageUrl}
-                                    className="w-full h-full object-contain rounded-2xl"
-                                    title="resume"
-                                />
-                            </a>
+                <section className="w-1/2 max-lg:w-full h-screen sticky top-0 p-6 bg-[url('/images/bg-small.svg')] bg-cover">
+                    {resumeUrl ? (
+                        <div className="w-[75%] h-[90vh] bg-white rounded-xl shadow-lg overflow-hidden border">
+                        <iframe
+                            src={`${resumeUrl}#toolbar=1&navpanes=0&scrollbar=1`}
+                            title="Resume Preview"
+                            className="w-full h-full"
+                        />
+                        </div>
+                    ) : (
+                        <div className="flex items-center justify-center h-full text-gray-500">
+                        Resume Preview Not Available
                         </div>
                     )}
-                </section>
+                    </section>
                 <section className="feedback-section">
                     <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
                     {feedback ? (

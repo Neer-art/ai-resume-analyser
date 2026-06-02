@@ -55,57 +55,107 @@ const CategoryHeader = ({
 };
 
 const CategoryContent = ({
-                           tips,
-                         }: {
-  tips: { type: "good" | "improve"; tip: string; explanation: string }[];
+  tips,
+  strengths = [],
+  detectedSkills = [],
+  missingSkills = [],
+}: {
+  tips: {
+    type: "good" | "improve";
+    tip: string;
+    explanation: string;
+  }[];
+  strengths?: string[];
+  detectedSkills?: string[];
+  missingSkills?: string[];
 }) => {
   return (
-      <div className="flex flex-col gap-4 items-center w-full">
-        <div className="bg-gray-50 w-full rounded-lg px-5 py-4 grid grid-cols-2 gap-4">
-          {tips.map((tip, index) => (
-              <div className="flex flex-row gap-2 items-center" key={index}>
-                <img
-                    src={
-                      tip.type === "good" ? "/icons/check.svg" : "/icons/warning.svg"
-                    }
-                    alt="score"
-                    className="size-5"
-                />
-                <p className="text-xl text-gray-500 ">{tip.tip}</p>
-              </div>
-          ))}
+    <div className="flex flex-col gap-6 w-full">
+
+      {/* Strengths */}
+      {strengths.length > 0 && (
+        <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+          <h3 className="font-bold text-green-700 mb-3">
+            ✅ Strengths
+          </h3>
+
+          <ul className="list-disc ml-5 space-y-2">
+            {strengths.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
         </div>
-        <div className="flex flex-col gap-4 w-full">
-          {tips.map((tip, index) => (
-              <div
-                  key={index + tip.tip}
-                  className={cn(
-                      "flex flex-col gap-2 rounded-2xl p-4",
-                      tip.type === "good"
-                          ? "bg-green-50 border border-green-200 text-green-700"
-                          : "bg-yellow-50 border border-yellow-200 text-yellow-700"
-                  )}
-              >
-                <div className="flex flex-row gap-2 items-center">
-                  <img
-                      src={
-                        tip.type === "good"
-                            ? "/icons/check.svg"
-                            : "/icons/warning.svg"
-                      }
-                      alt="score"
-                      className="size-5"
-                  />
-                  <p className="text-xl font-semibold">{tip.tip}</p>
-                </div>
-                <p>{tip.explanation}</p>
-              </div>
-          ))}
-        </div>
+      )}
+
+      {/* Suggestions */}
+      <div className="flex flex-col gap-4 w-full">
+        <h3 className="font-bold text-yellow-700">
+          ⚠ Suggestions
+        </h3>
+
+        {tips.map((tip, index) => (
+          <div
+            key={index}
+            className={cn(
+              "flex flex-col gap-2 rounded-xl p-4",
+              tip.type === "good"
+                ? "bg-green-50 border border-green-200"
+                : "bg-yellow-50 border border-yellow-200"
+            )}
+          >
+            <p className="font-semibold">
+              {tip.tip}
+            </p>
+
+            <p className="text-sm">
+              {tip.explanation}
+            </p>
+          </div>
+        ))}
       </div>
+
+      {/* Detected Skills */}
+      {detectedSkills.length > 0 && (
+        <div>
+          <h3 className="font-bold mb-3">
+            🎯 Detected Skills
+          </h3>
+
+          <div className="flex flex-wrap gap-2">
+            {detectedSkills.map((skill, index) => (
+              <span
+                key={index}
+                className="px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Missing Skills */}
+      {missingSkills.length > 0 && (
+        <div>
+          <h3 className="font-bold mb-3">
+            ❌ Missing Skills
+          </h3>
+
+          <div className="flex flex-wrap gap-2">
+            {missingSkills.map((skill, index) => (
+              <span
+                key={index}
+                className="px-3 py-1 rounded-full bg-red-100 text-red-700 text-sm"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
-
 const Details = ({ feedback }: { feedback: Feedback }) => {
   return (
       <div className="flex flex-col gap-4 w-full">
@@ -151,7 +201,13 @@ const Details = ({ feedback }: { feedback: Feedback }) => {
               />
             </AccordionHeader>
             <AccordionContent itemId="skills">
-              <CategoryContent tips={feedback.skills.tips} />
+              <CategoryContent tips={feedback.skills.tips} 
+              strengths={feedback.skills.strengths || []}
+              detectedSkills={feedback.skills.detectedSkills || []}
+              missingSkills={feedback.skills.missingSkills || []}
+              tips={feedback.structure.tips}
+              strengths={feedback.structure.strengths || []}
+              />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
