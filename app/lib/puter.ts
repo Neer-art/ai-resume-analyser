@@ -1,4 +1,11 @@
 import { create } from "zustand";
+// Temporary Type Definitions
+type PuterUser = any;
+type FSItem = any;
+type ChatMessage = any;
+type PuterChatOptions = any;
+type AIResponse = any;
+type KVItem = any;
 
 declare global {
     interface Window {
